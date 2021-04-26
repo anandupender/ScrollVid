@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/ScrollMagic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.7/plugins/animation.gsap.js" integrity="sha256-peenofh8a9TIqKdPKIeQE7mJvuwh+J0To7nslvpj1jI=" crossorigin="anonymous"></script>
@@ -13,7 +14,7 @@
 <body>
 
     <h1>Versions</h1>
-    <button onclick="start('data/drink1080m4v.json')">1080 JSON - 24 frames?</button>
+    <button onclick="start('data/drink1080m4v.json')">1080 JSON - 24 total frames?</button><br/><br/>
     <button onclick="start('data/drink-optimized.json')">The newest Json you sent - 6fps</button>
 
     <section class="intro">
@@ -22,23 +23,30 @@
     
     <script src="js/lottie.js"></script>
     <script>
+        var pressed = false;
+
         var animateData;
         function start(pathName){
-            console.log("start");
-            animateData = {
-                container: elem, //
-                renderer: "svg",
-                loop: false,
-                autoplay: false,
-                rendererSettings: { progressiveLoad: false },
-                path: pathName,
-            };
-            anim = lottie.loadAnimation(animateData);
-            scene.on("update", (e) => {
-                heightPerFrame = anim.totalFrames / animationTime; // if total animation duration === total frames, then 1px height scroll = 1 frame moved
-                delay = Math.round(e.scrollPos * heightPerFrame);
-                anim.goToAndStop(delay, true);
-            });
+            console.log(pressed);
+            if(pressed === false){
+
+                animateData = {
+                    container: elem, //
+                    renderer: "svg",
+                    loop: false,
+                    autoplay: false,
+                    rendererSettings: { progressiveLoad: false },
+                    path: pathName,
+                };
+                anim = lottie.loadAnimation(animateData);
+
+                scene.on("update", (e) => {
+                    heightPerFrame = anim.totalFrames / animationTime; // if total animation duration === total frames, then 1px height scroll = 1 frame moved
+                    delay = Math.round(e.scrollPos * heightPerFrame);
+                    anim.goToAndStop(delay, true);
+                });
+            }
+            pressed = true;
 
         }
     </script>
