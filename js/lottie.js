@@ -3,7 +3,7 @@ const intro = document.querySelector(".intro");
 const controller = new ScrollMagic.Controller();
 
 // set desired animation time long enough so that it doesn't skip frames when scrolling fast.
-const animationTime = 2427;
+const animationTime = 10000;
 
 // initialise scrollmagic scene
   let scene = new ScrollMagic.Scene({
